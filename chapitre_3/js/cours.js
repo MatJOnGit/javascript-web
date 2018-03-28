@@ -38,11 +38,12 @@ document.getElementById('langages').insertAdjacentHTML("afterBegin", '<li id="ja
 var bashElt = document.createElement("li"); // Création d'un élément li
 bashElt.id = "bash"; // Définition de son identifiant
 bashElt.textContent = "Bash"; // Définition de son contenu textuel
+
 // Remplacement de l'élément identifié par "perl" par le nouvel élément
 document.getElementById("langages").replaceChild(bashElt, document.getElementById("perl"));
 
 // Suppression de l'élément identifié par "bash"
 document.getElementById("langages").removeChild(document.getElementById("bash"));
 
-// Modification du contenu HTML : ajout d'un paragraphe sous la liste des language, contenant un lien
+// Modification du contenu HTML : ajout d'un paragraphe sous la liste des languages, contenant un lien
 document.getElementById('langages').insertAdjacentHTML("afterEnd", '<p>En voici une <a href="https://fr.wikipedia.org/wiki/Liste_de_langages_de_programmation">liste</a> plus complète</p>');

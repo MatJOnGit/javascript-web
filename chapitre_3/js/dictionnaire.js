@@ -15,19 +15,18 @@ var mots = [
 ];
 
 // TODO : créer le dictionnaire sur la page web, dans la div "contenu"
-document.getElementById("contenu").appendChild(document.createElement("dl")); // Insertion du dl
-// Ajout d'un élément au tout début de la liste
-for (i=0; i<mots.length; i++) {
-    var motElt = document.createElement("dt");
-    motElt.textContent = mots[i].terme;
-    //console.log(motElt.textContent);
-    var definitionElt = document.createElement("dd");
-    definitionElt.textContent = mots[i].definition;
-    //console.log(definitionElt.textContent);
+var dlElt = document.createElement("dl");
+document.getElementById("contenu").appendChild(dlElt);
+
+for (i = 0; i < mots.length; i++) {
+    var dtElt = document.createElement("dt");
+    var strongElt = document.createElement("strong");
+    strongElt.textContent = mots[i].terme;
     
-    document.querySelector("dl").appendChild(document.createElement("dt"));
-    document.querySelector("dt").appendChild(document.createElement("strong"));
-    document.querySelector("strong").appendChild(motElt);
-    document.querySelector("dl").appendChild(document.createElement("dd"));
-    document.querySelector("dd").appendChild(definitionElt);
+    var ddElt = document.createElement("dd");
+    ddElt.textContent = mots[i].definition;
+    
+    dtElt.appendChild(strongElt);
+    dlElt.appendChild(dtElt);
+    dlElt.appendChild(ddElt);
 }
