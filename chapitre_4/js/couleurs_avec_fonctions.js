@@ -15,24 +15,26 @@ function definitionCouleur() {
     return couleur;
 }
 
-function changementCouleurFond(divElts, couleurFond) {
+function changementCouleurFond(divElts) {
+    var couleur = definitionCouleur();
     for (i = 0; i < divElts.length; i++) {
-        divElts[i].style.backgroundColor = couleurFond;
+        divElts[i].style.backgroundColor = couleur;
     }
+    console.log("Couleur de fond changée en " + couleur);
 }
 
-function changementCouleurPolice(divElts, couleurPolice) {
+function changementCouleurPolice(divElts) {
+    var couleur = definitionCouleur();
     for (i = 0; i < divElts.length; i++) {
-        divElts[i].style.color = couleurPolice;
+        divElts[i].style.color = couleur;
     }
+    console.log("Couleur de police changée en " + couleur);
 }
 
 var divElts = document.getElementsByTagName("div");
 
 console.log("Choix de la couleur de fond");
-var couleur = definitionCouleur();
-changementCouleurFond(divElts, couleur);
+changementCouleurFond(divElts);
 
 console.log("Choix de la couleur de police");
-var couleur = definitionCouleur();
-changementCouleurPolice(divElts, couleur);
+changementCouleurPolice(divElts);
