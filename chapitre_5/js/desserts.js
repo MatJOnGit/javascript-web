@@ -13,18 +13,12 @@ function ajoutDessert() {
     }
     
     //Ajout d'un gestionnaire pour l'événement click sur les éléments de type li pour modifier l'élément cliqué
-    liElt.addEventListener("click", modificationDessert);
+    liElt.addEventListener("click", function (e) {
+        var dessert = prompt('Quel dessert souhaitez-vous ajouter à la place de "' + e.target.textContent + '" ?');
+        e.target.textContent = dessert;
+    });
 }
 
-function modificationDessert() {
-    var dessert = prompt("Quel dessert souhaitez-vous ajouter à la place ?");
-    console.log(dessert);
-    //Remplacement du textContent du li par la variable dessert
-    //...
-}
-
-
-var ulElt = document.getElementsByTagName("ul");
 var boutonAjoutElt = document.querySelector("button");
-// Ajout d'un gestionnaire pour l'événement click sur le bouton
+// Ajout d'un gestionnaire pour l'événement click sur le bouton "Ajouter un dessert"
 boutonAjoutElt.addEventListener("click", ajoutDessert);
