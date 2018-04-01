@@ -14,12 +14,24 @@ var questions = [
     }
 ];
 
+function hideButton(selectedButton) {
+  selectedButton.style.display = 'none';
+}
+
+function showAnswer(index) {
+    var reponseElt = document.createElement("span");
+    reponseElt.textContent = questions[index].reponse;
+    reponseElt.style.fontWeight = "normal";
+    document.getElementsByClassName(index)[0].appendChild(reponseElt);
+}
+
 var ulElt = document.createElement("ul");
 ulElt.style.listStyle = "none";
 
 for (var i=0; i<questions.length; i++) {
     liElt = document.createElement("li");
     liElt.textContent = "Question " + (i+1) + " : ";
+    liElt.className = i;
     liElt.style.fontWeight = "bold";
     liElt.style.marginBottom = "10px";
     
@@ -42,7 +54,11 @@ for (var i=0; i<questions.length; i++) {
     liElt.appendChild(boutonElt);
     
     boutonElt.addEventListener("click", function (e) {
-        e.target.textContent = "la réponse";
+        var buttonElt = e.target;
+        var arrayIndex = e.target.parentNode.className;
+        hideButton(buttonElt);
+        showAnswer(arrayIndex);
+
     });
 }
 
