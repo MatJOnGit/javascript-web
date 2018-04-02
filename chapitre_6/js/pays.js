@@ -20,25 +20,46 @@ var listePays = [
     "Azerbaïdjan"
 ];
 
+// Empty the displayed countries list
+function resetList() {
+    document.getElementById("suggestions").innerHTML = "";
+}
+
+// Copy countries from listePays and matching with the character string in a second tab named displayedCountries
+function filterList(entry) {
+    var displayedCountries = [];
+    listePays.forEach(function (country) {
+        if ((country.toLowerCase()).indexOf(entry.toLowerCase()) != -1) {
+            displayedCountries.push(country);
+        }
+    });
+    return displayedCountries;
+}
+
+// Create a <div> element for each element in displayedCountries tab
+function showList(countriesTab) {
+    countriesTab.forEach(function (country) {
+        var suggestedCountryElt = document.createElement("div");
+        suggestedCountryElt.classList.add("suggestion");
+        suggestedCountryElt.textContent = country;    
+        document.getElementById("suggestions").appendChild(suggestedCountryElt);
+        suggestedCountryElt.addEventListener("click", function(e) {
+            document.getElementById("pays").value = e.target.textContent;
+            resetList();
+        });
+    });
+}
+
 var countryInputElt = document.getElementById("pays");
-// Affichage d'un message contextuel pour la saisie du pseudo
+
 countryInputElt.addEventListener("focus", function () {
-    console.log("Entrée dans la saisie");
-});
-// Suppression du message contextuel pour la saisie du pseudo
-countryInputElt.addEventListener("blur", function () {
-    console.log("Sortie de la saisie");
+    resetList();
+    var displayedCountries = filterList(countryInputElt.value);
+    showList(displayedCountries);
 });
 
-
-
-
-
-
-
-
-// Produire une liste de <div> .suggestion contenant la chaîne de caractères contenue dans la balise <input> #pays dès qu'un focus est fait sur l'élément, et après chaque input
-
-// Pour chaque <div> .suggestion, créer un eventListener de type "click" pour copier son contenu dans la balise <input>
-
-// Affiche la liste dans la <div> #suggestions
+document.getElementById("pays").addEventListener("input", function () {
+    resetList();
+    var displayedCountries = filterList(countryInputElt.value);
+    showList(displayedCountries);
+});
