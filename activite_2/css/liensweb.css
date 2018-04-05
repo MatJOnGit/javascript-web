@@ -29,3 +29,8 @@ input {
     margin-right: 10px;
     padding: 1px 5px; 
 }
+
+#linkInfo {
+    background-color: #D2F0FA;
+    align-items: center;
+}

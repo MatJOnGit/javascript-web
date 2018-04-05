@@ -25,8 +25,7 @@ var listeLiens = [
 ];
 
 var contenu = document.getElementById("contenu");
-var newLink = [];
-
+var newLink;
 
 // Crée et renvoie un élément DOM affichant les données d'un lien
 // Le paramètre lien est un objet JS représentant un lien
@@ -65,7 +64,6 @@ function containerClearer() {
 
 function initLinkAdder() {
     containerClearer();
-    //ajouter bouton "Ajouter un lien"
     var newLinkButton = document.createElement("button");
     newLinkButton.textContent = "Ajouter un lien";
     linkBuilderElt.appendChild(newLinkButton);
@@ -99,18 +97,44 @@ function initLinkForm() {
     
     addLinkButton.addEventListener("click", function () {
         if ((authorElm.value != "") && (titleElm.value != "") && (urlElm.value != "")) {
-            newLink = [titleElm.value, urlElm.value, authorElm.value];
-            addLinkToList(newLink);
-            containerClearer();
-            //showInfo(); pendant 2 secondes
-            initLinkAdder();
+            newLink = {
+                titre: titleElm.value,
+                url: urlElm.value,
+                auteur: authorElm.value
+            };
+            showInfo(newLink);
         }
     });
 }
 
-function addLinkToList(newLink) {
-    console.log("Le lien " + newLink[0] + " a bien été ajouté à la liste par " + newLink[2] + ".");
+function showInfo(newLink) {
+    addLinkToList(newLink);
+    containerClearer();
     
+    var newLinkInfoElt = document.createElement("div");
+    newLinkInfoElt.textContent = 'Le lien "' + newLink.titre + '" a bien été ajouté.',
+    newLinkInfoElt.id = "linkInfo";
+    newLinkInfoElt.style.padding = "20px 15px";
+    newLinkInfoElt.style.marginBottom = "30px";
+    document.body.insertBefore(newLinkInfoElt, document.getElementById("linkBuilder"));
+    
+    // Vide le contenu de la div #linkInfo après 2s
+    setTimeout(function () {
+        newLinkInfoElt.style.marginBottom = "0px";
+        newLinkInfoElt.style.padding = "0px 0px";
+        document.getElementById("linkInfo").innerHTML = "";
+        initLinkAdder();
+    }, 2000);
+    
+    
+    initLinkAdder();
+}
+
+function addLinkToList(newLink) {
+    listeLiens.push(newLink);
+    //console.log(listeLiens[listeLiens.length - 1]);
+    var nouveauLien = creerElementLien(listeLiens[listeLiens.length - 1]);
+    contenu.appendChild(nouveauLien);
 }
 
 // Parcours de la liste des liens et ajout d'un élément au DOM pour chaque lien
