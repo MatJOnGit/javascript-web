@@ -97,6 +97,12 @@ function initLinkForm() {
     
     addLinkButton.addEventListener("click", function () {
         if ((authorElm.value != "") && (titleElm.value != "") && (urlElm.value != "")) {
+            var regexUrl1 = /http:\/\//;
+            var regexUrl2 = /https:\/\//;
+            if ((!regexUrl1.test(urlElm.value)) && (!regexUrl2.test(urlElm.value))) {
+                urlElm.value = "http://" + urlElm.value;
+            }
+            
             newLink = {
                 titre: titleElm.value,
                 url: urlElm.value,
@@ -111,12 +117,10 @@ function showInfo(newLink) {
     addLinkToList(newLink);
     containerClearer();
     
-    var newLinkInfoElt = document.createElement("div");
+    var newLinkInfoElt = document.getElementById("linkInfo");
     newLinkInfoElt.textContent = 'Le lien "' + newLink.titre + '" a bien été ajouté.',
-    newLinkInfoElt.id = "linkInfo";
     newLinkInfoElt.style.padding = "20px 15px";
     newLinkInfoElt.style.marginBottom = "30px";
-    document.body.insertBefore(newLinkInfoElt, document.getElementById("linkBuilder"));
     
     // Vide le contenu de la div #linkInfo après 2s
     setTimeout(function () {
@@ -125,7 +129,6 @@ function showInfo(newLink) {
         document.getElementById("linkInfo").innerHTML = "";
         initLinkAdder();
     }, 2000);
-    
     
     initLinkAdder();
 }
@@ -148,5 +151,10 @@ var linkBuilderElt = document.createElement("div");
 linkBuilderElt.id = "linkBuilder";
 linkBuilderElt.style.paddingBottom = "20px";
 document.body.insertBefore(linkBuilderElt, document.getElementById("contenu"));
+
+// Ajout de la div contenant le message signalant qu'un lien a bien été ajouté à la liste
+var newLinkInfoElt = document.createElement("div");
+newLinkInfoElt.id = "linkInfo";
+document.body.insertBefore(newLinkInfoElt, document.getElementById("linkBuilder"));
 
 initLinkAdder();
