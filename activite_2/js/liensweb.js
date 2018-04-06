@@ -1,11 +1,12 @@
 /* 
-Activité 1
+Activity 2
 */
 
-// Liste des liens Web à afficher. Un lien est défini par :
-// - son titre
-// - son URL
-// - son auteur (la personne qui l'a publié)
+// List of web links to display. A link is defined by :
+// - its title
+// - its URL
+// - its author
+
 var listeLiens = [
     {
         titre: "So Foot",
@@ -27,8 +28,6 @@ var listeLiens = [
 var contenu = document.getElementById("contenu");
 var newLink;
 
-// Crée et renvoie un élément DOM affichant les données d'un lien
-// Le paramètre lien est un objet JS représentant un lien
 function creerElementLien(lien) {
     var titreLien = document.createElement("a");
     titreLien.href = lien.url;
@@ -40,13 +39,11 @@ function creerElementLien(lien) {
     var urlLien = document.createElement("span");
     urlLien.appendChild(document.createTextNode(lien.url));
 
-    // Cette ligne contient le titre et l'URL du lien
     var ligneTitre = document.createElement("h4");
     ligneTitre.style.margin = "0px";
     ligneTitre.appendChild(titreLien);
     ligneTitre.appendChild(urlLien);
 
-    // Cette ligne contient l'auteur
     var ligneDetails = document.createElement("span");
     ligneDetails.appendChild(document.createTextNode("Ajouté par " + lien.auteur));
 
@@ -97,9 +94,10 @@ function initLinkForm() {
     
     addLinkButton.addEventListener("click", function () {
         if ((authorElm.value != "") && (titleElm.value != "") && (urlElm.value != "")) {
-            var regexUrl1 = /http:\/\//;
-            var regexUrl2 = /https:\/\//;
-            if ((!regexUrl1.test(urlElm.value)) && (!regexUrl2.test(urlElm.value))) {
+            var regexHTTP = /http:\/\//;
+            var regexHTTPS = /https:\/\//;
+            // Add "http://" to the beginning of the url when it doesn't start by "http://" or "https://"
+            if ((!regexHTTP.test(urlElm.value)) && (!regexHTTPS.test(urlElm.value))) {
                 urlElm.value = "http://" + urlElm.value;
             }
             
@@ -122,7 +120,7 @@ function showInfo(newLink) {
     newLinkInfoElt.style.padding = "20px 15px";
     newLinkInfoElt.style.marginBottom = "30px";
     
-    // Vide le contenu de la div #linkInfo après 2s
+    // Empty the linkInfo div content after 2 seconds
     setTimeout(function () {
         newLinkInfoElt.style.marginBottom = "0px";
         newLinkInfoElt.style.padding = "0px 0px";
@@ -135,24 +133,23 @@ function showInfo(newLink) {
 
 function addLinkToList(newLink) {
     listeLiens.push(newLink);
-    //console.log(listeLiens[listeLiens.length - 1]);
-    var nouveauLien = creerElementLien(listeLiens[listeLiens.length - 1]);
-    contenu.appendChild(nouveauLien);
+    newLink = creerElementLien(listeLiens[listeLiens.length - 1]);
+    contenu.appendChild(newLink);
 }
 
-// Parcours de la liste des liens et ajout d'un élément au DOM pour chaque lien
+// Add a DOM element for each link of the links list
 listeLiens.forEach(function (lien) {
     var elementLien = creerElementLien(lien);
     contenu.appendChild(elementLien);
 });
 
-// Ajout de la div contenant la fonctionnalité d'ajout de lien dans la liste
+// Add a div container for an "add link" feature
 var linkBuilderElt = document.createElement("div");
 linkBuilderElt.id = "linkBuilder";
 linkBuilderElt.style.paddingBottom = "20px";
 document.body.insertBefore(linkBuilderElt, document.getElementById("contenu"));
 
-// Ajout de la div contenant le message signalant qu'un lien a bien été ajouté à la liste
+// Add a div to display a message in when a link has been added to the list
 var newLinkInfoElt = document.createElement("div");
 newLinkInfoElt.id = "linkInfo";
 document.body.insertBefore(newLinkInfoElt, document.getElementById("linkBuilder"));
