@@ -1,0 +1,18 @@
+.letter {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.word {
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.definition {
+    margin-bottom: 20px;
+}
+
+#results {
+    margin-top: 30px;
+}
